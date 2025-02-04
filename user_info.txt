@@ -1,0 +1,3 @@
+GITBRANCH=workshop/terraform
+GITURL=github.com/NanoShark/devopshift-welcome.git
+GITUSERNAME=NanoShark
