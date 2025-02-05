@@ -1,20 +1,11 @@
-variable "empty_ip" {
-  default     = ""
+provider "aws" {
+  region = "us-east-1"  # Change this to your region
 }
 
-
-resource "null_resource" "check_public_ip" {
-  provisioner "local-exec" {
-    command = <<EOT
-      if [ -z "${var.empty_ip}" ]; then
-        echo "ERROR: Public IP address was not assigned. " >&2
-        exit 1
-        else
-        echo "We got the IP! ${var.empty_ip}"
-      fi
-    EOT
-  }
-
-  #depends_on = [aws_instance.vm]
+data "aws_instance" "yaniv_vm" {
+  instance_id = "i-09df7e0ed385f871b"
 }
 
+output "public_ip" {
+  value = data.aws_instance.yaniv_vm.public_ip
+}
