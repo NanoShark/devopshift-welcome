@@ -1,5 +1,5 @@
 resource "aws_instance" "vm" {
- ami                         = var.ami
+ ami                         = data.aws_ami.vm_ami.id
  instance_type               = var.vm_size
  vpc_security_group_ids      = [aws_security_group.sg.id]
 
