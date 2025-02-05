@@ -2,6 +2,16 @@ provider "aws" {
   region = var.region
 }
 
+terraform {
+  required_providers {
+    time = {
+      source  = "hashicorp/time"
+      version = "0.12.1"  # Make sure to use the version that match latest version
+    }
+  }
+}
+
+
 variable "region" {
   default = "us-east-1"
 }
@@ -34,8 +44,19 @@ resource "aws_instance" "vm" {
   }
 }
 
-
 resource "time_sleep" "wait_for_ip" {
-  create_duration = "5s"  # Introduce a delay of 30 seconds
+  create_duration = "10s"  # Wait for 10 seconds
 }
 
+resource "null_resource" "run_script" {
+  provisioner "local-exec" {
+    command = "echo 'Hello JB class'"
+  }
+}
+
+
+output "vm_public_ip" {
+  value       = aws_instance.vm.public_ip
+  description = "Public IP address of the VM"
+  depends_on  = [time_sleep.wait_for_ip]  # Wait for the time_sleep resource to complete
+}
