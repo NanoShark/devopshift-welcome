@@ -1,14 +1,18 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
-module "vpc" {
-  source = "./modules/vpc"
+module "network" {
+  source = "./modules/network"
+  cider_block_range = 16
+  subnet_count = 2
 }
 
 module "ec2" {
-  source             = "./modules/ec2"
-  subnet_id          = module.vpc.public_subnet_id
-  vpc_id             = module.vpc.vpc_id
+  source = "./modules/ec2"
+  subnet_id = module.network.public_subnet_id
+  vpc_id = module.network.vpc_id
   
 }
+
+

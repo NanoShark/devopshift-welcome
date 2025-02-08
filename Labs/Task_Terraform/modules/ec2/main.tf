@@ -26,13 +26,14 @@ resource "aws_security_group" "michael_security_group" {
 
 
 resource "aws_instance" "michael-instance" {
-  ami                         = var.ami_id
-  instance_type               = var.instance_type
-  subnet_id                   = var.subnet_id
-  vpc_security_group_ids      = [aws_security_group.michael_security_group.id]
+  count = length(var.subnet_id)
+  ami = var.ami_id
+  instance_type  = var.instance_type
+  subnet_id = var.subnet_id[count.index]
+  vpc_security_group_ids = [aws_security_group.michael_security_group.id]
   associate_public_ip_address = true
 
   tags = {
-    Name = "michael-instance"
+    Name = "michael-instance-${count.index}"
   }
 }
