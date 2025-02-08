@@ -5,7 +5,9 @@ provider "aws" {
 module "network" {
   source = "./modules/network"
   cider_block_range = 16
-  subnet_count = 2
+  subnet_count_public = 1
+  subnet_count_private = 1
+
 }
 
 module "ec2" {
