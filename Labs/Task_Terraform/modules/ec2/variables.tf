@@ -5,7 +5,9 @@ variable "instance_type" {
 variable "ami_id" {
   default = "ami-0e1bed4f06a3b463d"
 }
-
-# receive variables from main
-variable "subnet_id" {}
-variable "vpc_id" {}
+variable "subnet_id" {
+  default = ""
+}
+variable "vpc_id" {
+  default = ""
+}

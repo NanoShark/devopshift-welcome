@@ -1,5 +1,3 @@
-
-
 resource "aws_security_group" "michael_security_group" {
   name   = "michael_security_group"
   vpc_id = var.vpc_id
