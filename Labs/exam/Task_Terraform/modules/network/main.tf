@@ -9,9 +9,8 @@ resource "aws_subnet" "public_subnet" {
   count = var.subnet_count_public
   vpc_id = aws_vpc.michael_vpc.id
   cidr_block = cidrsubnet(aws_vpc.michael_vpc.cidr_block, 8, count.index)
-  map_public_ip_on_launch = true
   availability_zone = random_shuffle.az_shuffle.result[count.index]
-
+  map_public_ip_on_launch = true
   tags = {
     Name = "public-subnet-${count.index + 1}"
   }
