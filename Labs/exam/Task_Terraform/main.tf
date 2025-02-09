@@ -14,7 +14,8 @@ module "ec2" {
   source = "./modules/ec2"
   subnet_id = module.network.public_subnet_id
   vpc_id = module.network.vpc_id
-  
+  instance_type = "t2.micro"
+  assign_public_ip   = true
 }
 
 

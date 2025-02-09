@@ -31,7 +31,7 @@ resource "aws_instance" "michael-instance" {
   instance_type  = var.instance_type
   subnet_id = var.subnet_id[count.index]
   vpc_security_group_ids = [aws_security_group.michael_security_group.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = var.assign_public_ip
 
   tags = {
     Name = "michael-instance-${count.index}"

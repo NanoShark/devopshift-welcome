@@ -1,5 +1,5 @@
 variable "instance_type" {
-  default = "t2.micro"
+  default = "t3.micro"
 }
 
 variable "ami_id" {
@@ -13,4 +13,8 @@ variable "subnet_id" {
 
 variable "vpc_id" {
   default = ""
+}
+
+variable "assign_public_ip" {
+  default     = true
 }
