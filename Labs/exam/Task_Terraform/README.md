@@ -1,7 +1,5 @@
 # AWS Infrastructure with Terraform
 
-This Terraform project deploys a scalable AWS infrastructure consisting of VPC networking, EC2 instances, and an Application Load Balancer.
-
 ## Architecture
 
 - VPC with configurable CIDR block
