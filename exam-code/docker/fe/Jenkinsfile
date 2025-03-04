@@ -5,35 +5,41 @@ pipeline {
        }
    }
    environment {
-       DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds'
+       DOCKERHUB_CREDENTIALS = credentials("docker-hub-creds")
        DOCKER_REGISTRY = 'nanoshark'
        REPO_NAME = 'fe-exam'  //### IMAGE NAME -  Change to 'be-exam' WHEN creating the backend pipeline
        IMAGE_TAG = "${env.BUILD_NUMBER}"
    }
    stages {
-       stage('Clone Repository') {
+       stage("Clone Repository") {
            steps {
                git branch: 'main', url: 'https://github.com/NanoShark/devopshift-welcome.git'
            }
        }
-       stage('Lint & Security Scan'){
+       stage("Lint & Security Scan"){
             parallel {
-                stage('Flake8 Linting'){
+                stage("Flake8 Linting"){
                     steps{
                         script{
                           sh '''
+                           if ! command -v flake8 &> /dev/null; then
+                            echo "Installing flake8..."
                             pip install flake8
-                            flake8 fe/src/mainfe.py || true
+                            fi
+                            flake8 $WORKSPACE/fe/src/ || true
                           '''  
                         }
                     }
                 }
-                stage('Bandit Security Scan'){
+                stage("Bandit Security Scan"){
                     steps{
                        script{
                           sh '''
-                            pip install bendit
-                            bendit -r fe/src || true
+                            if ! command -v bandit &> /dev/null; then
+                            echo "Installing bandit..."
+                            pip install bandit
+                            fi  
+                            bandit -r $WORKSPACE/fe/src || true
                           '''  
                         } 
                     }
@@ -43,7 +49,7 @@ pipeline {
 
        stage('Install Dependencies'){
             steps{
-                sh "pip install -r fe/requirements.txt"
+                sh "pip install -r $WORKSPACE/fe/requirements.txt"
             }
        } 
        stage('Build Docker Image'){
