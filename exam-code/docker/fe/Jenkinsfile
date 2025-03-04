@@ -1,9 +1,6 @@
 pipeline {
-   agent {
-       docker {
-           image 'python:3.10'
-       }
-   }
+   agent { label 'docker'}
+
    environment {
        DOCKERHUB_CREDENTIALS = credentials("docker-hub-creds")
        DOCKER_REGISTRY = 'nanoshark'
@@ -53,6 +50,7 @@ pipeline {
             }
        } 
        stage('Build Docker Image'){
+           
                 steps{
                     script{
                     sh '''
