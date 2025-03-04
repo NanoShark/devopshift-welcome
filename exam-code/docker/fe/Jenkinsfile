@@ -69,7 +69,7 @@ pipeline {
         stage('Integration Test with Docker Compose'){
            steps {
 
-                sh echo "Integration Test with Docker Compose"
+                sh "echo Integration Test with Docker Compose"
                 // dir("welcome/exam/exam-code/docker") {
                 //     sh 'docker-compose -f docker-compose.yaml up -d'
                 //     sleep 10
