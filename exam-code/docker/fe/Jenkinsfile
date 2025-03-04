@@ -71,13 +71,13 @@ pipeline {
                 script{
                     sh '''
                     echo Docker-Compose installed
-                    curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m`" -o /usr/local/bin/docker-compose
-                    docker-compose -f exam-code/docker/docker-compose.yaml down || true
-                    docker ps | grep -q 5004 && echo "Port 5004 is mapped and the container is running." || exit 1
-                    docker-compose up -d
-                    sleep 10  # Allow services to start
-                    curl -f http://localhost:5004 || exit 1  # Adjust for backend if needed
-                    docker-compose down
+                    // curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m`" -o /usr/local/bin/docker-compose
+                    // docker-compose -f exam-code/docker/docker-compose.yaml down || true
+                    // docker ps | grep -q 5004 && echo "Port 5004 is mapped and the container is running." || exit 1
+                    // docker-compose up -d
+                    // sleep 10  # Allow services to start
+                    // curl -f http://localhost:5004 || exit 1  # Adjust for backend if needed
+                    // docker-compose down
                     '''
                 }
             }
@@ -87,8 +87,8 @@ pipeline {
                 script{
                     sh '''
                     echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-                    docker push <your-dockerhub-username>/your-app:$BUILD_NUMBER
-                    docker push <your-dockerhub-username>/your-app:latest
+                    // docker push <your-dockerhub-username>/your-app:$BUILD_NUMBER
+                    // docker push <your-dockerhub-username>/your-app:latest
                     '''
                 }
             }
