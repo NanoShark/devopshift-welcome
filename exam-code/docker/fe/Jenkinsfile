@@ -67,26 +67,14 @@ pipeline {
             }
         }
         stage('Integration Test with Docker Compose'){
-            steps{
-                script{
-                    dir('fe')
-                    sh '''
-                    pwd
-                    docker-compose up -d
+           steps {
+                dir("${WORKSPACE}/welcome/exam/exam-code/docker") {
+                    sh 'docker-compose -f docker-compose.yaml up -d'
                     sleep 10
-                    curl -f http://localhost:5004 || true
-                    docker-compose down
-                    
-                    '''
-                    //  curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-                    // // docker-compose -f exam-code/docker/docker-compose.yaml down || true
-                    // // docker ps | grep -q 5004 && echo "Port 5004 is mapped and the container is running." || exit 1
-                    // // docker-compose up -d
-                    // // sleep 10  # Allow services to start
-                    // // curl -f http://localhost:5004 || exit 1  # Adjust for backend if needed
-                    // // docker-compose down
+                    sh 'docker ps | grep -q 5004 && echo "Port 5004 is mapped and the container is running." || exit 1 ' 
+                    sh 'docker-compose -f docker-compose.yaml down'
                 }
-            }
+           }
         }
         stage('Push to Docker Hub'){
             steps{
