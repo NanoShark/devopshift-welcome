@@ -71,6 +71,7 @@ pipeline {
                 script{
                     sh '''
                     pwd
+                    cd /exam-code/
                     ls
                     
                     '''
