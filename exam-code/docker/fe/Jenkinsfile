@@ -63,8 +63,7 @@ pipeline {
 
         stage('Run Tests in Container'){
             steps{
-                    //sh "docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} pytest /app/tests/"
-                    sh "echo run tests in docker image"
+                    sh "docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} pytest /app/tests/"
             }
         }
         stage('Integration Test with Docker Compose'){
