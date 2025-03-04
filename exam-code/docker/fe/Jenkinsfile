@@ -54,7 +54,6 @@ pipeline {
                 steps{
                     script{
                     sh '''
-                    cd exam-code/docker/fe/
                     docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} -f exam-code/docker/fe/Dockerfile exam-code/docker/fe
                     docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest
                     '''
