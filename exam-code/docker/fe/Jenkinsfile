@@ -26,7 +26,7 @@ pipeline {
                             echo "Installing flake8..."
                             pip install flake8
                             fi
-                            flake8 $WORKSPACE/fe/src/ || true
+                            flake8 fe/src/ || true
                           '''  
                         }
                     }
@@ -39,7 +39,7 @@ pipeline {
                             echo "Installing bandit..."
                             pip install bandit
                             fi  
-                            bandit -r $WORKSPACE/fe/src || true
+                            bandit -r fe/src || true
                           '''  
                         } 
                     }
