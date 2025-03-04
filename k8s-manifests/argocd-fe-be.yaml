@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/NanoShark/devopshift-welcome.git' 
-    targetRevision: HEAD
+    targetRevision: argo-jenkins-exam
     path: k8s-manifests  # Path to your YAML files
   destination:
     server: 'https://kubernetes.default.svc'
