@@ -69,10 +69,13 @@ pipeline {
         stage('Integration Test with Docker Compose'){
             steps{
                 script{
+                    dir('fe')
                     sh '''
                     pwd
-                    cd /exam-code
-                    ls
+                    docker-compose up -d
+                    sleep 10
+                    curl -f http://localhost:5004 || exit 1
+                    docker-compose down
                     
                     '''
                     //  curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
